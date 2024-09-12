@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -33,10 +34,10 @@ public class Customer {
     private String status; // 'Active', 'Inactive', 'Prospect', 'Lead'
 
     @Column(nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     @Column(nullable = false)
-    private LocalDateTime updatedAt;
+    private LocalDate updatedAt;
 
 
 }
