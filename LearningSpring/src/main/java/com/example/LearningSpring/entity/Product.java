@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Product {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(nullable = false)
     private String name;
@@ -22,8 +22,12 @@ public class Product {
     @Column(nullable = false)
     private double price;
 
-    private int quantity;
+    private int stock;
 
     private String image;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "categoryId")
+    private ProductCategory category;
 
 }

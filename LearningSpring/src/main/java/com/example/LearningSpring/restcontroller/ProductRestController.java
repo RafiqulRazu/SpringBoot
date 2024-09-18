@@ -30,4 +30,6 @@ public class ProductRestController {
         List<Product> productList = productService.findAllProduct();
         return ResponseEntity.ok(productList);
     }
+
+    
 }

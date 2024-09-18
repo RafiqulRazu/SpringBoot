@@ -8,11 +8,11 @@
 		<version>3.3.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.rafiqul</groupId>
-	<artifactId>CRMsystem</artifactId>
+	<groupId>com.example</groupId>
+	<artifactId>FinalProject</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>CRMsystem</name>
-	<description>Project for Spring Boot</description>
+	<name>FinalProject</name>
+	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
 		<license/>

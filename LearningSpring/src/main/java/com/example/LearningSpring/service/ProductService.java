@@ -1,6 +1,7 @@
 package com.example.LearningSpring.service;
 
 import com.example.LearningSpring.entity.Product;
+import com.example.LearningSpring.repository.ProductCategoryRepository;
 import com.example.LearningSpring.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,11 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private ProductCategoryRepository productCategoryRepository;
+
+
 
     public List<Product> findAllProduct() {
         return productRepository.findAll();

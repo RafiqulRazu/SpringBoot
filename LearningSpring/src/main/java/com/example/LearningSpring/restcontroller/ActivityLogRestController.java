@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/act/api")
+@RequestMapping("/api/act")
 public class ActivityLogRestController {
 
     @Autowired
