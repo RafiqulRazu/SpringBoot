@@ -27,9 +27,34 @@ public class ProductRestController {
 
     @GetMapping("/")
     public ResponseEntity<List<Product>> getAllProduct() {
-        List<Product> productList = productService.findAllProduct();
+        List<Product> productList = productService.getAllProduct();
         return ResponseEntity.ok(productList);
     }
+
+    @GetMapping("/p/searchProduct")
+    public ResponseEntity<List<Product>> findProductByCategoryName(@RequestParam(value = "categoryName")String categoryName) {
+        List<Product> productList = productService.findProductByCategoryName(categoryName);
+        return ResponseEntity.ok(productList);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Product>findProductById(@PathVariable int id){
+        try {
+            Product product=productService.findById(id);
+            return ResponseEntity.ok(product);
+        }
+        catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteProduct(@PathVariable int id) {
+
+        productService.deleteProductById(id);
+    }
+
+
 
     
 }

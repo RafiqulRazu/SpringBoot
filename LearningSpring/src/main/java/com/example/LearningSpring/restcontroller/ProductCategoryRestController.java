@@ -1,6 +1,7 @@
 package com.example.LearningSpring.restcontroller;
 
 import com.example.LearningSpring.entity.ProductCategory;
+import com.example.LearningSpring.repository.ProductCategoryRepository;
 import com.example.LearningSpring.service.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,37 +12,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/category")
+@CrossOrigin("*")
 public class  ProductCategoryRestController {
 
     @Autowired
     private ProductCategoryService productCategoryService;
+    @Autowired
+    private ProductCategoryRepository productCategoryRepository;
 
     @GetMapping("/")
-    public List<ProductCategory> getAllProductCategory() {
-        return productCategoryService.getAllProductCategory();
+    public ResponseEntity<List<ProductCategory>> getAllProductCategory() {
+        List<ProductCategory> productCategory = productCategoryRepository.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(productCategory);
     }
 
-    @PutMapping("/save")
-    public ResponseEntity<ProductCategory> saveProductCategory(@RequestBody ProductCategory category) {
-        productCategoryService.saveProductCategory(category);
-        return new ResponseEntity<>(category, HttpStatus.CREATED);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public void deleteProductCategory(@PathVariable long id) {
-        productCategoryService.deleteProductCategoryById(id);
-    }
-
-    @PutMapping("/update/{id}")
-    public ResponseEntity <ProductCategory>updateProductCategory(@RequestBody ProductCategory category,@PathVariable long id) {
-        category = productCategoryService.updateProductCategory(category, id);
-        return new ResponseEntity<>(category, HttpStatus.OK);
-    }
-
-    @GetMapping("/{id}")
-    public  ProductCategory getProductById(@PathVariable("id") long id) {
-
-        return  productCategoryService.findById(id);
-
-    }
 }

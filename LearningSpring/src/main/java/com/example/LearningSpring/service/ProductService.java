@@ -1,6 +1,7 @@
 package com.example.LearningSpring.service;
 
 import com.example.LearningSpring.entity.Product;
+import com.example.LearningSpring.entity.ProductCategory;
 import com.example.LearningSpring.repository.ProductCategoryRepository;
 import com.example.LearningSpring.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,34 +21,65 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
-
     @Autowired
     private ProductCategoryRepository productCategoryRepository;
 
 
 
-    public List<Product> findAllProduct() {
+    public List<Product> getAllProduct() {
         return productRepository.findAll();
     }
 
     public void saveProduct(Product product, MultipartFile imageFile) throws IOException {
 
+        ProductCategory category = productCategoryRepository.findById(product.getCategory().getId())
+                .orElseThrow(()->new RuntimeException("Product Category with this Id not found"));
+
+
         if(!imageFile.isEmpty() && imageFile !=null){
             String imageFilePath = saveImage(imageFile, product);
             product.setImage(imageFilePath);
         }
+        product.setCategory(category);
         productRepository.save(product);
     }
 
-    public Product findProductById(int id) {
-        return productRepository.findById(id).get();
+    public Product findById(int id) {
+        return productRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("Product with this Id not found"));
     }
 
     public void deleteProductById(int id) {
         productRepository.deleteById(id);
     }
 
-    @Value("src/main/resources/static/image")
+    public List<Product> findProductByCategoryName(String categoryName) {
+        return productRepository.findProductByCategoryName(categoryName);
+    }
+
+    public Product updateProduct(Product product, int id, MultipartFile file) throws IOException {
+        Product existingProduct = this.productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product Not Found"));
+
+        // Update product details
+        existingProduct.setName(product.getName());
+        existingProduct.setCategory(product.getCategory());
+        existingProduct.setPrice(product.getPrice());
+        existingProduct.setStock(product.getStock());
+
+
+        // If a new image file is provided, save it
+        if (file != null && !file.isEmpty()) {
+            String imageFileName = this.saveImage(file, existingProduct);
+            existingProduct.setImage(imageFileName);
+        }
+
+        // Save the updated product
+        return this.productRepository.save(existingProduct);
+    }
+
+
+    @Value("src/main/resources/static/images")
     private String uploadDir;
 
     private String saveImage(MultipartFile file, Product product) throws IOException {

@@ -14,27 +14,24 @@ public class ProductCategoryService {
     private ProductCategoryRepository productCategoryRepository;
 
     public void saveProductCategory(ProductCategory category) {
-
         productCategoryRepository.save(category);
     }
 
     public List<ProductCategory> getAllProductCategory() {
-
         return productCategoryRepository.findAll();
     }
 
-    public void deleteProductCategoryById(long id) {
-
+    public void deleteProductCategory(long id) {
         productCategoryRepository.deleteById(id);
     }
 
     public ProductCategory findById(long id) {
 
-        return productCategoryRepository.findById(id).get();
+        return productCategoryRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Category Not Found by this Id"));
     }
 
     public ProductCategory updateProductCategory(ProductCategory category, long id) {
-
         return productCategoryRepository.save(category);
     }
 

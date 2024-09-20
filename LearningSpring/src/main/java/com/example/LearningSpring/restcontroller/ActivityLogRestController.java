@@ -16,21 +16,25 @@ public class ActivityLogRestController {
 
     @GetMapping("/")
     public List<ActivityLog> findAllAct() {
+
         return activityLogService.findAllAct();
     }
 
     @PostMapping("/save")
     public void saveAct(@RequestBody ActivityLog act) {
+
         activityLogService.saveAct(act);
     }
 
     @DeleteMapping("/delete/{id}")
     public void deleteActById(@PathVariable int id) {
+
         activityLogService.deleteActById(id);
     }
 
     @PutMapping("/update")
     public void updateAct(@RequestBody ActivityLog act) {
+
         activityLogService.saveAct(act);
     }
 }
