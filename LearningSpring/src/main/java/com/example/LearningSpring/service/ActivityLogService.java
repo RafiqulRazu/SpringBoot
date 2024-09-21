@@ -1,6 +1,7 @@
 package com.example.LearningSpring.service;
 
 import com.example.LearningSpring.entity.ActivityLog;
+import com.example.LearningSpring.entity.Customer;
 import com.example.LearningSpring.repository.ActivityLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ public class ActivityLogService {
     private ActivityLogRepository activityLogRepository;
 
     public void saveAct(ActivityLog activityLog) {
+
         activityLogRepository.save(activityLog);
     }
 

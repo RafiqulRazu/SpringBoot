@@ -6,10 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
-@Table(name = "order")
+@Table(name = "customer_order")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Order {
@@ -29,7 +30,7 @@ public class Order {
     @JoinColumn(name = "sales_executive_id")
     private User salesExecutive;
 
-//    @OneToMany(mappedBy = "order")
-//    private List<OrderItem> orderItems;
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems;
 
 }

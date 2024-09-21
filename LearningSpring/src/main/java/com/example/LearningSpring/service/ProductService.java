@@ -44,12 +44,12 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public Product findById(int id) {
+    public Product findById(long id) {
         return productRepository.findById(id)
                 .orElseThrow(()->new RuntimeException("Product with this Id not found"));
     }
 
-    public void deleteProductById(int id) {
+    public void deleteProductById(long id) {
         productRepository.deleteById(id);
     }
 
@@ -57,7 +57,7 @@ public class ProductService {
         return productRepository.findProductByCategoryName(categoryName);
     }
 
-    public Product updateProduct(Product product, int id, MultipartFile file) throws IOException {
+    public Product updateProduct(Product product, long id, MultipartFile file) throws IOException {
         Product existingProduct = this.productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product Not Found"));
 
