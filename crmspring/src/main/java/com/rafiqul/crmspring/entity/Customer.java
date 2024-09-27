@@ -7,24 +7,22 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "product")
+@Table(name = "customer")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
-    @Column(nullable = false)
     private String name;
 
-    private double unitPrice;
+    private String email;
 
-    private double quantity;
+    private String phone;
 
-    private float vat;
+    private String address;
 
-    private String status;
-
+    private String company;
 }

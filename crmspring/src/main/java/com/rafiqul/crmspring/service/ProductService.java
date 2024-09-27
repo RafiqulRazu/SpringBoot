@@ -15,52 +15,39 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-
-//    @Transactional
-//    public Product createProduct(Product product) {
-//        return productRepository.save(product);
-//    }
-
+    // Create a new product
     @Transactional
     public Product createProduct(Product product) {
-        // Ensure agentAmount is less than mrp
-        if (product.getAgentAmount() >= product.getMrp()) {
-            throw new IllegalArgumentException("Agent amount must be less than MRP.");
-        }
         return productRepository.save(product);
     }
 
+    // Get a product by its ID
     public Optional<Product> getProductById(Long id) {
         return productRepository.findById(id);
     }
 
+    // Get all products
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
-//
-
+    // Update an existing product
     @Transactional
     public Product updateProduct(Long id, Product productDetails) {
         Product existingProduct = productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found with id: " + id));
 
-        // Ensure agentAmount is less than mrp
-        if (productDetails.getAgentAmount() >= productDetails.getMrp()) {
-            throw new IllegalArgumentException("Agent amount must be less than MRP.");
-        }
-
-        // Update the product fields
+        // Update fields
         existingProduct.setName(productDetails.getName());
-        existingProduct.setAgentAmount(productDetails.getAgentAmount());
-        existingProduct.setMrp(productDetails.getMrp());
-        existingProduct.setUnit(productDetails.getUnit());
+        existingProduct.setUnitPrice(productDetails.getUnitPrice());
+        existingProduct.setQuantity(productDetails.getQuantity());
         existingProduct.setVat(productDetails.getVat());
         existingProduct.setStatus(productDetails.getStatus());
 
         return productRepository.save(existingProduct);
     }
 
+    // Delete a product
     @Transactional
     public void deleteProduct(Long id) {
         Product existingProduct = productRepository.findById(id)
