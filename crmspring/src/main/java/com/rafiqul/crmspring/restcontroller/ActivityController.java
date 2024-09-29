@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/act")
+@CrossOrigin("*")
 public class ActivityController {
 
     @Autowired

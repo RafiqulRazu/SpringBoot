@@ -40,7 +40,7 @@ public class ProductService {
         // Update fields
         existingProduct.setName(productDetails.getName());
         existingProduct.setUnitPrice(productDetails.getUnitPrice());
-        existingProduct.setQuantity(productDetails.getQuantity());
+        existingProduct.setStock(productDetails.getStock());
         existingProduct.setVat(productDetails.getVat());
         existingProduct.setStatus(productDetails.getStatus());
 
