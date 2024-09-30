@@ -14,7 +14,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Activity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String activityType; // 'Call', 'Email', 'Meeting'
@@ -30,4 +31,8 @@ public class Activity {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "agent_id")
     private User agent;
+
+    public Activity(long id) {
+        this.id = id;
+    }
 }
