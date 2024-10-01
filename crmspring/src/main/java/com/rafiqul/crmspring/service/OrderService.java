@@ -1,7 +1,9 @@
 package com.rafiqul.crmspring.service;
 
+import com.rafiqul.crmspring.entity.Lead;
 import com.rafiqul.crmspring.entity.Order;
 import com.rafiqul.crmspring.entity.Product;
+import com.rafiqul.crmspring.repository.LeadRepository;
 import com.rafiqul.crmspring.repository.OrderRepository;
 import com.rafiqul.crmspring.repository.ProductRepository;
 import com.rafiqul.crmspring.service.ProductService;
@@ -24,12 +26,22 @@ public class OrderService {
     private ProductRepository productRepository;
 
     @Autowired
+    private LeadRepository leadRepository;
+
+    @Autowired
     private ProductService productService;
 
 
     @Transactional
     public Order createOrder(Order order) {
-        Product product = productService.getProductById(order.getProduct().getId());
+
+        Product product = productRepository.findById(order.getProduct().getId())
+                .orElseThrow(() -> new RuntimeException("Order with this id not found."));
+        order.setProduct(product);
+
+//        Lead lead = LeadRepository.findById(order.getLead().getId())
+//                .orElseThrow(() -> new RuntimeException("Lead with this id not found."));
+//        order.setLead(lead);
 
         double totalAmount = calculateTotalAmount(product, order.getQuantity());
         order.setTotalAmount(totalAmount);

@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/product")
-@CrossOrigin("* ")
+@CrossOrigin("*")
 public class ProductController {
 
     @Autowired
