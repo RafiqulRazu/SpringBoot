@@ -6,8 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -19,15 +18,17 @@ public class Order {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  long id;
 
+
     @ManyToOne
     @JoinColumn(name = "lead_id", nullable = false)
     private Lead lead;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderItem> orderItems = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
-    private LocalDate orderDate;
+    private Date orderDate;
 
     private double quantity;
 

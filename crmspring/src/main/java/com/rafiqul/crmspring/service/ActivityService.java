@@ -25,7 +25,7 @@ public class ActivityService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    // Create a new activity
+
     @Transactional
     public Activity createActivity(Activity activity) {
         if (activity.getAgent() != null) {
@@ -41,17 +41,17 @@ public class ActivityService {
         return activityRepository.save(activity);
     }
 
-    // Get all activities
+
     public List<Activity> getAllActivities() {
         return activityRepository.findAll();
     }
 
-    // Get an activity by ID
+
     public Optional<Activity> getActivityById(long id) {
         return activityRepository.findById(id);
     }
 
-    // Update an activity by ID
+
     public Activity updateActivity(long id, Activity updatedActivity) {
         return activityRepository.findById(id).map(activity -> {
             activity.setActivityType(updatedActivity.getActivityType());
@@ -63,7 +63,7 @@ public class ActivityService {
         }).orElseThrow(() -> new RuntimeException("Activity not found with id " + id));
     }
 
-    // Delete an activity by ID
+
     public void deleteActivity(long id) {
         activityRepository.deleteById(id);
     }

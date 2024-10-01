@@ -14,22 +14,22 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    // Create a new customer
+
     public Customer createCustomer(Customer customer) {
         return customerRepository.save(customer);
     }
 
-    // Get a list of all customers
+
     public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
 
-    // Get a customer by ID
+
     public Optional<Customer> getCustomerById(Long id) {
         return customerRepository.findById(id);
     }
 
-    // Update a customer by ID
+
     public Customer updateCustomer(Long id, Customer updatedCustomer) {
         return customerRepository.findById(id).map(customer -> {
             customer.setName(updatedCustomer.getName());
@@ -41,7 +41,6 @@ public class CustomerService {
         }).orElseThrow(() -> new RuntimeException("Customer not found with id " + id));
     }
 
-    // Delete a customer by ID
     public void deleteCustomer(Long id) {
         customerRepository.deleteById(id);
     }

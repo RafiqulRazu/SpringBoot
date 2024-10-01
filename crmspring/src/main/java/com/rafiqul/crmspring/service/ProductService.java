@@ -2,7 +2,6 @@ package com.rafiqul.crmspring.service;
 
 import com.rafiqul.crmspring.entity.Product;
 import com.rafiqul.crmspring.repository.ProductRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,45 +14,44 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    // Create a new product
-    @Transactional
+
     public Product createProduct(Product product) {
         return productRepository.save(product);
     }
 
-    // Get a product by its ID
-    public Optional<Product> getProductById(Long id) {
-        return productRepository.findById(id);
+
+    public Product getProductById(Long productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
     }
 
-    // Get all products
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
-    // Update an existing product
-    @Transactional
-    public Product updateProduct(Long id, Product productDetails) {
-        Product existingProduct = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Product not found with id: " + id));
 
-        // Update fields
-        existingProduct.setName(productDetails.getName());
-        existingProduct.setUnitPrice(productDetails.getUnitPrice());
-        existingProduct.setStock(productDetails.getStock());
-        existingProduct.setVat(productDetails.getVat());
-        existingProduct.setStatus(productDetails.getStatus());
-
+    public Product updateProduct(Long productId, Product updatedProduct) {
+        Product existingProduct = getProductById(productId);
+        existingProduct.setName(updatedProduct.getName());
+        existingProduct.setUnitPrice(updatedProduct.getUnitPrice());
+        existingProduct.setStock(updatedProduct.getStock());
+        existingProduct.setVat(updatedProduct.getVat());
+        existingProduct.setStatus(updatedProduct.getStatus());
         return productRepository.save(existingProduct);
     }
 
-    // Delete a product
-    @Transactional
-    public void deleteProduct(Long id) {
-        Product existingProduct = productRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Product not found with id: " + id));
+    public void deleteProduct(Long productId) {
+        productRepository.deleteById(productId);
+    }
 
-        productRepository.delete(existingProduct);
+    // Update product stock (deduct stock when an order is created)
+    public void updateStock(Product product, double quantity) {
+        double newStock = product.getStock() - quantity;
+        if (newStock < 0) {
+            throw new RuntimeException("Insufficient stock for product: " + product.getName());
+        }
+        product.setStock(newStock);
+        productRepository.save(product);
     }
 
 }

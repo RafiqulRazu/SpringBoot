@@ -1,7 +1,6 @@
 package com.rafiqul.crmspring.restcontroller;
 
 import com.rafiqul.crmspring.entity.Order;
-import com.rafiqul.crmspring.entity.OrderItem;
 import com.rafiqul.crmspring.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,42 +10,52 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin("*")
+
 @RestController
 @RequestMapping("/api/order")
+@CrossOrigin("*")
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
 
-    @PostMapping("save")
+
+    @PostMapping("/save")
     public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-        return ResponseEntity.ok(orderService.createOrder(order));
+        Order createdOrder = orderService.createOrder(order);
+        return ResponseEntity.ok(createdOrder);
     }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
+        Order order = orderService.getOrderById(id);
+        return ResponseEntity.ok(order);
+    }
+
 
     @GetMapping("/")
     public ResponseEntity<List<Order>> getAllOrders() {
-        return ResponseEntity.ok(orderService.getAllOrders());
+        List<Order> orders = orderService.getAllOrders();
+        return ResponseEntity.ok(orders);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderById(@PathVariable long id) {
-        Order order = orderService.getOrderById(id);
-        return order != null ? ResponseEntity.ok(order) : ResponseEntity.notFound().build();
-    }
+
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Order> updateOrder(@PathVariable long id, @RequestBody Order updatedOrder) {
-        Order updated = orderService.updateOrder(id, updatedOrder);
-        return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
+    public ResponseEntity<Order> updateOrder(
+            @PathVariable Long id,
+            @RequestBody Order updatedOrder) {
+        Order order = orderService.updateOrder(id, updatedOrder);
+        return ResponseEntity.ok(order);
     }
+
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteOrder(@PathVariable long id) {
-        boolean isDeleted = orderService.deleteOrder(id);
-        return isDeleted ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    public ResponseEntity<Void> deleteOrder(@PathVariable Long id) {
+        orderService.deleteOrder(id);
+        return ResponseEntity.noContent().build();
     }
-
 
 
 }
