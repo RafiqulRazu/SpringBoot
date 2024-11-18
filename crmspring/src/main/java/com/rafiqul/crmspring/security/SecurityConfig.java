@@ -39,7 +39,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         req->
                                 req.requestMatchers(
-                                                "/login","/register/**", "/activate/**","/api/customer/", "/api/product/","api/product/save" )
+                                                "/login","/register/**", "/activate/**","/api/customer/", "/api/product/","api/product/save", "api/act/save" )
                                         .permitAll()
                                         .requestMatchers("api/**").permitAll()
                                         .requestMatchers("api/product/{id}")

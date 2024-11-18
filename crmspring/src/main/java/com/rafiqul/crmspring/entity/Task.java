@@ -11,7 +11,7 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@Table(name = "user")
+@Table(name = "task")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Task {
