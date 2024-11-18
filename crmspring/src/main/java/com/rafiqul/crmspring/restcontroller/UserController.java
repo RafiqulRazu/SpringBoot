@@ -57,4 +57,5 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Return 404 if user not found
         }
     }
+
 }
