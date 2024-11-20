@@ -99,13 +99,4 @@ public class User implements UserDetails {
         return active;
     }
 
-
-
-//    public enum Role {
-//        ADMIN,
-//        SALES,
-//        AGENT
-//    }
-
-//    private String status;
 }
