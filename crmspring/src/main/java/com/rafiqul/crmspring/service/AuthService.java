@@ -70,7 +70,7 @@ public class  AuthService {
 
 
         saveUserToken(jwt, user);
-        sendActivationEmail(user);
+        //sendActivationEmail(user);
 
         return new AuthenticationResponse(jwt, "User registration was successful", null);
     }
@@ -95,7 +95,7 @@ public class  AuthService {
 
 
         saveUserToken(jwt, user);
-        sendActivationEmail(user);
+        //sendActivationEmail(user);
 
         return new AuthenticationResponse(jwt, "User registration was successful", null);
     }
@@ -157,7 +157,7 @@ public class  AuthService {
     }
 
 
-    private void sendActivationEmail(User user) {
+    /*private void sendActivationEmail(User user) {
         String activationLink = "http://localhost:8089/activate/" + user.getId();
 
         String mailText = "<h3>Dear " + user.getName()
@@ -176,7 +176,7 @@ public class  AuthService {
             throw new RuntimeException(e);
         }
 
-    }
+    }*/
 
 
     public String activateUser(long id) {
