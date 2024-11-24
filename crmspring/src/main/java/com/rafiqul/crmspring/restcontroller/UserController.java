@@ -30,6 +30,24 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @GetMapping("/getAllSalesExecutives")
+    public ResponseEntity<List<User>> getAllSalesExecutives() {
+        List<User> user = userService.getAllSalesExecutives();
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllAgents")
+    public ResponseEntity<List<User>> getAllAgents() {
+        List<User> user = userService.getAllAgents();
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllAdmins")
+    public ResponseEntity<List<User>> getAllAdmins() {
+        List<User> user = userService.getAllAdmins();
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         Optional<User> user = userService.getUserById(id);

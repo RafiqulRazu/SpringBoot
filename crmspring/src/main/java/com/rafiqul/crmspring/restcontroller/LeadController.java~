@@ -30,13 +30,7 @@ public class LeadController {
         }
     }
 
-    @GetMapping("/save")
-    public ResponseEntity<Lead> createLead(@RequestBody Lead lead) {
-        leadService.createLead(lead);
-        return new ResponseEntity<>(lead, HttpStatus.OK);
-    }
-
-    @PostMapping("/")
+    @GetMapping("/")
     public ResponseEntity<List<Lead>> getAllLeads() {
         List<Lead> leads = leadService.getAllLeads();
         return new ResponseEntity<>(leads, HttpStatus.OK);

@@ -9,7 +9,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +27,7 @@ public class LeadService {
     public Lead createLead(Lead lead) {
         Activity existingActivity = activityRepository.findById(lead.getActivity().getId())
                 .orElseThrow(() -> new IllegalArgumentException("Activity not found"));
-        lead.setCreatedAt(new Date());
+
         return leadRepository.save(lead);
     }
 

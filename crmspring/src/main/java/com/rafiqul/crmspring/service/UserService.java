@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,19 @@ public class UserService implements UserDetailsService {
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public List<User> getAllSalesExecutives() {
+        return userRepository.findAllByRole(Role.SALES_EXECUTIVE).orElse(new ArrayList<>());
+    }
+
+
+    public List<User> getAllAgents() {
+        return userRepository.findAllByRole(Role.AGENT).orElse(new ArrayList<>());
+    }
+
+    public List<User> getAllAdmins() {
+        return userRepository.findAllByRole(Role.ADMIN).orElse(new ArrayList<>());
     }
 
     @Transactional
