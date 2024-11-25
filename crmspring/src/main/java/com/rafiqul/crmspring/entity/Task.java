@@ -14,7 +14,7 @@ import java.util.Date;
 @Table(name = "task")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Task {
+public class  Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
